@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">API_Caller</string>
+    <string name="random_word">Get random word and definition</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
