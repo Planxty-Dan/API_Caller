@@ -1,6 +1,7 @@
 package com.bunniesarecute.admin.api_caller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,17 +11,18 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-    Button randomWord;
+    Button getRandomWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        randomWord = (Button) findViewById(R.id.randomWord);
-        randomWord.setOnClickListener(new View.OnClickListener() {
+        getRandomWord = (Button) findViewById(R.id.getRandomWord);
+        getRandomWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Intent wordIntent = new Intent(getApplicationContext(), ShowWordAndDef.class);
+                startActivity(wordIntent);
             }
         });
     }

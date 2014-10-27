@@ -9,10 +9,10 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/randomWord"
+        android:id="@+id/getRandomWord"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:padding="10dp"
-        android:text="@string/random_word"/>
+        android:text="@string/get_random_word"/>
 
 </RelativeLayout>
