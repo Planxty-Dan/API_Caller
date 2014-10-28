@@ -11,8 +11,9 @@ public class ShowWordAndDef extends Activity{
 
     private TextView wordDisplay;
     private TextView definitionDisplay;
-    String wordFromAPI;
-    String definitionFromAPI;
+    String wordFromAPI = "";
+    String definitionFromAPI = "";
+    DictionaryAPI mDictionaryAPI;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -20,11 +21,18 @@ public class ShowWordAndDef extends Activity{
         setContentView(R.layout.word_and_def);
         wordDisplay = (TextView) findViewById(R.id.randomWord);
         definitionDisplay = (TextView) findViewById(R.id.randomDefinition);
+        mDictionaryAPI = new DictionaryAPI(this);
+        mDictionaryAPI.setWordOrDef("word");
+        mDictionaryAPI.execute();
+
+        mDictionaryAPI.setWordOrDef("definition");
+        mDictionaryAPI.setWord(wordFromAPI);
+        mDictionaryAPI.execute();
 
         wordDisplay.setText(wordFromAPI);
         definitionDisplay.setText(definitionFromAPI);
 
-        
+
     }
 
 }
