@@ -11,8 +11,8 @@ public class ShowWordAndDef extends Activity{
 
     private TextView wordDisplay;
     private TextView definitionDisplay;
-    String wordFromAPI = "";
-    String definitionFromAPI = "";
+    private String wordFromAPI = "";
+    private String definitionFromAPI = "";
     DictionaryAPI mDictionaryAPI;
 
     @Override
@@ -24,15 +24,18 @@ public class ShowWordAndDef extends Activity{
         mDictionaryAPI = new DictionaryAPI(this);
         mDictionaryAPI.setWordOrDef("word");
         mDictionaryAPI.execute();
+        wordFromAPI = mDictionaryAPI.getWordFromAPI();
+//        mDictionaryAPI.setWordOrDef("definition");
+//        mDictionaryAPI.setWord(wordFromAPI);
+//        mDictionaryAPI.execute();
+//        definitionFromAPI = mDictionaryAPI.getDefinitionFromAPI();
+//        wordDisplay.setText(wordFromAPI);
+//        definitionDisplay.setText(definitionFromAPI);
 
-        mDictionaryAPI.setWordOrDef("definition");
-        mDictionaryAPI.setWord(wordFromAPI);
-        mDictionaryAPI.execute();
 
-        wordDisplay.setText(wordFromAPI);
-        definitionDisplay.setText(definitionFromAPI);
-
-
+    }
+    public void setWordDisplay(String word) {
+        wordDisplay.setText(word);
     }
 
 }

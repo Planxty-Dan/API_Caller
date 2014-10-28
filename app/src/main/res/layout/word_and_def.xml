@@ -7,9 +7,13 @@
 
     <TextView
         android:id="@+id/randomWord"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:hint="random word"
+        android:paddingTop="20dp"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/randomDefinition"

@@ -6,6 +6,9 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,20 +40,25 @@ public class DictionaryAPI extends AsyncTask{
     }
 
     private final String API_key = "6aa015c0d84b01a6c205f6848a6dea42bcb91d757d4341dde";
+    private final String WORD_KEY = "word";
+    private final String DEF_KEY = "text";
     InputStream mInputStream = null;
     String mSearchResult = "";
     private String mDictionaryURL = "http://api.wordnik.com:80/v4/words.json/";
     private String mRandomWordURL = "randomWord?hasDictionaryDef=true&minLength=1&api_key=";
     private String mDefinitionURL = "/definitions?limit=1&includeRelated=false&sourceDictionaries=webster&useCanonical=false&includeTags=false&api_key=";
     private String mWord = "";
+    private String mDefinition = "";
     private String mSearchURL = "";
     HttpURLConnection mURLConnection = null;
+    JSONObject mJSONObject;
 
     @Override
     protected void onPreExecute() {
         mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
                 DictionaryAPI.this.cancel(true);
+
             }
         });
     }
@@ -82,6 +90,31 @@ public class DictionaryAPI extends AsyncTask{
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
+        try {
+            mJSONObject = new JSONObject(mSearchResult);
+        } catch (JSONException e) {
+            Log.i("TAG JSON", "JSONException in DictionaryAPI.postExecute");
+        }
+
+        if (mWordOrDef == "word") {
+            try {
+                mWord = mJSONObject.getString(WORD_KEY);
+                ShowWordAndDef mWordDisplay = (ShowWordAndDef) mCurrentContext;
+                mWordDisplay.setWordDisplay(mWord);
+            } catch (JSONException e) {
+                Log.i("TAG GETWORD", "JSONexception in getting word during onPostEx");
+            }
+
+        } else if (mWordOrDef == "definition") {
+            try {
+                mDefinition = mJSONObject.getString(DEF_KEY);
+            } catch (JSONException e) {
+                Log.i("TAG GETDEF", "JSONexception in getting definition during onPostEx");
+            }
+        } else {
+            Log.v("TAG IFELSE", "Problem with if/else in DictionaryAPI.postExecute");
+        }
+
     }
 
     public String stringBuild() {
@@ -93,5 +126,13 @@ public class DictionaryAPI extends AsyncTask{
             Log.v("TAG IFELSE", "Problem with if/else in DictionaryAPI.stringBuild");
         }
         return mSearchURL;
+    }
+
+    public String getWordFromAPI() {
+        return mWord;
+    }
+
+    public String getDefinitionFromAPI() {
+        return mDefinition;
     }
 }
